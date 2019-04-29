@@ -1,0 +1,60 @@
+page{
+padding-left: 25rpx;
+padding-right: 25rpx;
+box-sizing: border-box;
+}
+.header{
+  display: flex;
+  width: 100%;
+  padding: 22rpx 0;
+  box-sizing: border-box;
+  box-shadow:0px 4px 10px 0px rgba(53,53,53,0.04);
+  align-items: center;
+}
+.header .b-sea{
+display: flex;
+width:618rpx;
+height:64rpx;
+background:rgba(240,240,244,1);
+border-radius:32rpx;
+align-items: center;
+}
+.header .fan-h{
+font-size:30rpx;
+font-family:PingFang;
+color:rgba(118,124,140,1);
+margin-left: 25rpx;
+}
+.title{
+  width: 100%;
+  padding: 41rpx 0rpx 13rpx;
+  box-sizing: border-box;
+  display: flex;
+}
+.title .left{
+width: 50%;
+font-size:30rpx;
+font-family:PingFang;
+color:rgba(59,64,78,1);
+}
+.title .right{
+  width: 50%;
+  font-size:30rpx;
+  font-family:PingFang;
+  color:#a5aab8;
+  display: flex;
+  justify-content: flex-end;
+}
+.list{
+  padding: 0 32rpx;
+  box-sizing: border-box;
+  margin-right: 20rpx;
+  float: left;
+  height:62rpx;
+  background:rgba(240,240,244,1);
+  border-radius:4px;
+  line-height: 62rpx;
+  font-size:24rpx;
+  color:rgba(118,124,140,1);
+  margin-top: 19rpx;
+}

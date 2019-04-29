@@ -1,0 +1,39 @@
+<view class='header' bindtap="{{(!hasUserInfo && canIUse)?'':'bindphone'}}">
+<button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo" class='h-button'> 点击授权 </button>
+<block wx:else>
+    <view class='left'>
+        <image  src="{{userInfo.avatarUrl}}"  class='tx'></image>
+    </view>
+    <view class='right' >
+        <view class='name'>{{userInfo.nickName}}</view>
+        <view class='phone'  data-phone='{{phone}}'>{{phone}}</view>
+    </view>
+ </block>
+</view>
+<view class='middle'>
+<view class='z-h'>
+<image src='./images/z-h.png' class='img' style='width:40rpx;height:40rpx;'></image>
+<navigator class='m-s' url='/pages/account/account' hover-class="none">我的账户</navigator>
+<image src='./images/j-t.png' class='j-t' style='width:11rpx;height:21rpx;'></image>
+</view>
+<view class='x-hx'></view>
+<view class='set'>
+<image src='./images/set.png' class='img' style='width:40rpx;height:40rpx;'></image>
+<view class='m-s'  hover-class="none" bindtap='setbind'>设置</view>
+<image src='./images/j-t.png' class='j-t' style='width:11rpx;height:21rpx;'></image>
+</view>
+<view class='x-hx'></view>
+<view class='g-y'>
+<image src='./images/g-y.png' class='img' style='width:40rpx;height:40rpx;'></image>
+<navigator class='m-s' url='/pages/about-us/about-us' hover-class="none">关于我们</navigator>
+<image src='./images/j-t.png' class='j-t' style='width:11rpx;height:21rpx;'></image>
+</view>
+<!-- 打牌 -->
+<!-- <view class='x-hx'></view>
+<view class='g-y'>
+<image src='./images/dapai.png' class='img' style='width:40rpx;height:40rpx;'></image>
+<navigator class='m-s' url='/pages/dapai/dapai' hover-class="none">记账</navigator>
+<image src='./images/j-t.png' class='j-t' style='width:11rpx;height:21rpx;'></image>
+</view> -->
+<!--  -->
+</view>

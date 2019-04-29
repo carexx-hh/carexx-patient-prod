@@ -1,0 +1,39 @@
+.content{
+  width: 100%;
+  border-top: 1rpx solid #f6f6f6;
+  padding: 44rpx 33rpx 0;
+  box-sizing: border-box; 
+}
+.content .list{
+  width: 100%;
+  height: 100%;
+  background:rgba(255,255,255,1);
+}
+.content .list .title{
+  width: 100%;
+  font-size:30rpx;
+  font-family:PingFang;
+  font-weight:bold;
+  color:rgba(59,64,78,1);
+  box-sizing: border-box;
+}
+.content .list .o-o{
+  margin-top: 40rpx;
+  height: 207rpx;
+  width: 171rpx;
+  float: left;
+}
+.content .list .bt-xq{
+margin-top: 10rpx;
+font-size:26rpx;
+font-family:PingFang;
+color:rgba(59,64,78,1);
+text-align: center;
+}
+.content .list .price{
+margin-top: 6rpx;
+font-size:22rpx;
+font-family:PingFang;
+color:rgba(254,98,13,1);
+text-align: center;
+}

@@ -1,0 +1,111 @@
+<view class='header'>
+<image src='../order/images/o-o.png' style="width:160rpx;height:160rpx;"></image>
+<view class='xiang-q'>
+<view class='title'>{{project.serviceName}}</view>
+<view class='time'>详细介绍：{{project.serviceExplain}}</view>
+<view class='price'>￥<text class='shu-zi' style='font-size:46rpx;'>{{project.servicePrice}}</text>/天<text class='holiday'> (法定节假日当天费用翻倍)</text></view>
+</view>
+</view>
+<!--  -->
+<view class='material'>
+  <view class='title'>
+<view class='z-s'></view>
+<view class='m-s'>服务时间</view>
+  </view>
+</view>
+<!--  -->
+<view class='list' style='padding-left:30rpx;box-sizing:border-box;'>
+<view class='kind'>
+<view class='kind-name'>订单开始日期</view>
+<view class='t-k-name' style='width:40%;'>
+<text>{{starttime}}</text>
+</view>
+</view>
+<!--  -->
+<view class='kind'>
+<view class='kind-name'>订单结束日期</view>
+<view class='t-k-name' style='width:40%;'>
+<text>{{endtime}}</text>
+</view>
+</view>
+</view>
+<!--  -->
+<view class='z-f-m'>
+<view class='right'>
+<text style='color:#A5AAB8;font-size:24rpx;'>（包含{{project.holiday}}天节假日）</text>总天数：<text>{{newdata}}天</text>
+</view>
+</view>
+<!--  -->
+<view class='material'>
+  <view class='title'>
+<view class='z-s'></view>
+<view class='m-s'>费用详情</view>
+  </view>
+</view>
+<!--  -->
+<view class='list' style='padding-left:30rpx;box-sizing:border-box;'>
+<view class='kind'>
+<view class='kind-name'>护理费用</view>
+<view class='t-k-name' style='width:40%;'>
+<text>{{newdata}}x{{project.servicePrice}}</text>
+</view>
+</view>
+<!--  -->
+<view class='kind'>
+<view class='kind-name'>节假日费用</view>
+<view class='t-k-name' style='width:40%;'>
+<text>{{project.holiday}}x{{project.servicePrice}}</text>
+</view>
+</view>
+<!--  -->
+<view class='kind'>
+<view class='kind-name'>平台服务费</view>
+<view class='t-k-name' style='width:40%;'>
+<text>4.00</text>
+</view>
+</view>
+</view>
+<!--  -->
+<view class='money-r'>
+<view class='right'>
+<view class='r-l'>总金额：</view>
+<view>
+<text>￥</text>
+<text style='font-size:46rpx;'>{{price}}</text>
+<text wx:if='{{show_1}}'>.00</text>
+</view>
+</view>
+</view>
+<!--  -->
+<view class='middle'>
+<view class='z-h'>
+<image src='./images/wchat.png' class='img' style='width:56rpx;height:38rpx;'></image>
+<navigator class='m-s'  hover-class="none">微信支付</navigator>
+
+<radio-group class="radio-group" bindchange="radioChange">
+  <label class="radio" wx:for="{{items}}">
+    <radio value="{{item.name}}" checked="{{item.checked}}" color='#5489FD'/>
+  </label>
+</radio-group>
+
+</view>
+<view class='x-hx'></view>
+<view class='set'>
+<image src='./images/wallet.png' class='img' style='width:50rpx;height:50rpx;'></image>
+<navigator class='m-s' hover-class="none">钱包支付</navigator>
+</view>
+</view>
+<!--  -->
+<view class='bottom'>
+<view class='b-left'>
+<view class='r-l'>总金额：</view>
+<view>
+<text>￥</text>
+<text style='font-size:46rpx;'>{{price}}</text>
+<text wx:if='{{show_1}}'>.00</text>
+</view>
+</view>
+<view class='b-right'>
+<button plain='flase' class='pay' style='color:white;' bindtap='btnClick'>确认支付</button>
+</view>
+</view>

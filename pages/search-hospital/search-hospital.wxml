@@ -1,0 +1,10 @@
+<view class='content'>
+<view class='list'>
+<view class='title'>服务项目</view>
+<view class='o-o' hover-class='none' wx:for="{{project}}" bindtap='clickproject' data-name='{{item.serviceName}}' data-money='{{item.servicePrice}}' data-serviceid='{{item.serviceId}}' data-serviceexplain='{{item.serviceExplain}}'>
+    <image class='t-x' src='../index/images/o-o.png' style="width:120rpx;height:120rpx;margin-left:26rpx;"></image>
+    <view class='bt-xq'>{{item.serviceName}}</view>
+    <view class='price'>￥{{item.servicePrice}}/天</view>
+</view>
+</view>
+</view>

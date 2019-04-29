@@ -1,0 +1,10 @@
+<view class='content'>
+ <view class='hospital' style='margin-bottom:19rpx;'  hover-class='none' wx:for="{{project}}" bindtap='clickproject' data-id='{{item.id}}'>
+   <image src='./images/hospital.png' style="width:172rpx;height:172rpx;border-radius:8rpx;"></image>
+   <view class='xiang-q'>
+    <view class='title'>{{item.instName}}</view>
+    <view class='address'>地址：<text class='shu-zi'>{{item.instRegion}}{{item.instAddr}}</text></view>
+    <view class='phone'>简介：<text class='shu-zi'>{{item.introduce}}</text></view>
+  </view>
+ </view>
+</view>

@@ -1,0 +1,153 @@
+<view class='header'>
+<image src='../order/images/o-o.png' style="width:160rpx;height:160rpx;"></image>
+<view class='xiang-q'>
+<view class='title'>{{project.serviceName}}</view>
+<view class='time'>详细介绍：{{project.serviceExplain}}</view>
+<view class='price'>￥<text class='shu-zi' style='font-size:46rpx;'>{{project.servicePrice}}</text>/天<text class='holiday'> (法定节假日当天费用翻倍)</text></view>
+</view>
+</view>
+<view class='material'>
+  <view class='title'>
+<view class='z-s'></view>
+<view class='m-s'>个人资料</view>
+  </view>
+</view>
+<!--  -->
+<view class='list' style='padding-left:30rpx;box-sizing:border-box;'>
+<view class='kind'>
+<view class='kind-name'>姓名</view>
+<view class='t-k-name'>
+<text>{{project.patientName}}</text>
+</view>
+</view>
+</view>
+<!--  -->
+<view class='list' style='padding-left:30rpx;box-sizing:border-box;'>
+<view class='kind'>
+<view class='kind-name'>手机号</view>
+<view class='t-k-name' style='width:38%;'>
+<text>{{project.patientPhone}}</text>
+</view>
+</view>
+</view>
+<!--  -->
+<view class='list' style='padding-left:30rpx;box-sizing:border-box;'>
+<view class='kind'>
+<view class='kind-name'>病区</view>
+<view class='t-k-name' style='width:40%;'>
+<text>{{project.inpatientArea}}</text>
+</view>
+</view>
+</view>
+<!--  -->
+<view class='list' style='padding-left:30rpx;box-sizing:border-box;'>
+<view class='kind'>
+<view class='kind-name'>床号</view>
+<view class='t-k-name'>
+<text>{{project.accurateAddress}}</text>
+</view>
+</view>
+</view>
+<!--  -->
+<view class='material'>
+  <view class='title'>
+<view class='z-s'></view>
+<view class='m-s'>服务时间</view>
+  </view>
+</view>
+<!--  -->
+<view class='list' style='padding-left:30rpx;box-sizing:border-box;'>
+<view class='kind'>
+<view class='kind-name'>订单开始日期</view>
+<view class='t-k-name' style='width:40%;'>
+<text>{{starttime}}</text>
+</view>
+</view>
+<!--  -->
+<view class='kind' wx:if='{{isShow}}'>
+<view class='kind-name'>订单结束日期</view>
+<view class='t-k-name' style='width:40%;'>
+<text>{{endtime}}</text>
+</view>
+</view>
+</view>
+<!--  -->
+<view class='b-zhu'>
+<view class='title'>备注</view>
+<view class='right'>
+<text>{{project.orderRemark}}</text>
+</view>
+</view>
+<!--  -->
+<view class='material'>
+  <view class='title'>
+<view class='z-s'></view>
+<view class='m-s'>服务信息</view>
+  </view>
+</view>
+<!--  -->
+<view class='list' style='padding-left:30rpx;box-sizing:border-box;'>
+<block wx:if='{{orderStatus!==1}}'>
+<view class='kind'>
+<view class='kind-name'>服务人员</view>
+<view class='t-k-name' style='width:40%;'>
+<text>{{project.staffName}}</text>
+</view>
+</view>
+<!--  -->
+<view class='kind'>
+<view class='kind-name'>联系方式</view>
+<view class='t-k-name' style='width:40%;'>
+<text>{{project.staffPhone}}</text>
+</view>
+</view>
+<!--  -->
+<view class='kind'>
+<view class='kind-name'>订单所属</view>
+<view class='t-k-name' style='width:40%;'>
+<text>{{project.instName}}</text>
+</view>
+</view>
+</block>
+<!--  -->
+<view class='kind'>
+<view class='kind-name'>状态</view>
+<view class='t-k-name' style='width:40%;'>
+<text>{{orderStatus==1?"待排班":(orderStatus==4?"服务中":"已完成")}}</text>
+</view>
+</view>
+</view>
+<!--  -->
+<view class='bottom' wx:if='{{!isShow}}'>
+<button  class='btn' bindtap='btnClick' style="color:{{orderStatus==1?'#3B404E':'#FFFFFF'}};background:{{orderStatus==1?'#FFFFFF':'linear-gradient(90deg,rgba(87,145,253,1) 0%,rgba(80,120,252,1) 98%)'}};border:{{orderStatus==1?'1px solid #AAAAAA':'none'}}">{{orderStatus==1?"取消订单":"支付并结束"}}</button>
+</view>
+<!-- 其他 -->
+<block wx:else>
+<view class='material'>
+  <view class='title'>
+<view class='z-s'></view>
+<view class='m-s'>其他</view>
+  </view>
+</view>
+<!--  -->
+<view class='list' style='padding-left:30rpx;box-sizing:border-box;'>
+<view class='kind'>
+<view class='kind-name'>凭证类型</view>
+<view class='t-k-name' style='width:40%;'>
+<text>{{project.proofType==1?"收据":(project.proofType==2?"发票":"无")}}</text>
+</view>
+</view>
+<!--  -->
+<view class='kind'>
+<view class='kind-name'>凭证号</view>
+<view class='t-k-name' style='width:40%;'>
+<text>{{number}}</text>
+</view>
+</view>
+</view>
+<view class='bottom'>
+<view   class='z-price'><text style='color:#767C8C'>合计:</text>￥<text class='shu-zi' style='font-size:46rpx;'>{{project.orderAmt}}</text><text wx:if='{{xshow}}'>.00</text><text style='color:#767C8C'>（共服务{{serviceDays}}天）</text>
+</view>
+</view>
+</block>
+
