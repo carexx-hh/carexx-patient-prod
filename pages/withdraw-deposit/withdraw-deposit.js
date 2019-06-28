@@ -7,8 +7,11 @@ Page({
    * 页面的初始数据
    */
   data: {
-      money:'',
-      payAmt:''
+      money:'',  //余额
+      payAmt:'',  //提现金额
+      poundage: '', //手续费
+      deductAmt: '',  //从余额中扣除金额
+      canClick:true,  //可以点击
   },
 
   /**
@@ -19,7 +22,6 @@ Page({
       this.setData({
           money: Number(options.money)
       })
-      console.log(this.data.money)
   },
   /**
    * inputPayAmt
@@ -28,97 +30,135 @@ Page({
       console.log(e)
       console.log(e.detail.value)
       this.setData({
-          payAmt:e.detail.value
+          payAmt:e.detail.value,
+          poundage: parseFloat(e.detail.value * 0.002).toFixed(2)*100/100,
+          deductAmt: parseFloat(e.detail.value) + parseFloat((e.detail.value * 0.002).toFixed(2)) * 100 / 100
       })
+
+      if ((e.detail.value * 0.002) < 0.02) {
+          this.setData({
+            payAmt: e.detail.value,
+            poundage: 0.02,
+            deductAmt: parseFloat(e.detail.value) + parseFloat(0.02)
+          })
+        }
   },
   /**
    * 提现
    */
   
-  withdraw(){
-      let payAmt= this.data.payAmt;
-      let money= this.data.money;
-      let openId,token;
-      if(!payAmt){
-          wx.showToast({
-              title: '请输入提现金额',
-              image: './images/cancel.png',
-              duration: 2000
-          });
-          return;
-            
-      }else if(payAmt>money){
-          wx.showToast({
-              title: '账户余额不足',
-              image: './images/cancel.png',
-              duration: 2000
-          });
-          return;
-      }
-      console.log(app)
-      try {
-          openId = wx.getStorageSync('openId')
-          token = wx.getStorageSync('token')
-          if (!openId) {
-              // Do something with return value
-              wx.showToast({
-                  title: 'openId不存在'
-              });
-              return;
+    withdraw(){
+        if(!this.data.canClick) return false;
+        let payAmt= this.data.payAmt;
+        let money= this.data.money;
+        let openId,token;
+        if(!payAmt){
+            wx.showToast({
+                title: '请输入提现金额',
+                image: './images/cancel.png',
+                duration: 2000
+            });
+            return;
                 
-          }
-          if (!token) {
-              // Do something with return value
-              wx.showToast({
-                  title: 'token不存在'
-              });
-              return;
+        }else if(payAmt>money){
+            wx.showToast({
+                title: '账户余额不足',
+                image: './images/cancel.png',
+                duration: 2000
+            });
+            return;
+        }
+        console.log(typeof payAmt)
+        console.log(payAmt !== '' && payAmt <= money)
+        if (!(payAmt !== '' && payAmt <= money)){
+            wx.showToast({
+                title: '请输入有效金额',
+            });
+            return;
                 
-          }
-      } catch (e) {
-          // Do something when catch error
-          console.log(e)
-      }
-      wx.request({
-        url: app.globalData.baseUrl + '/useraccount/refund',
-          data: {
-              openId,
-              payAmt
-          },
-          header: {
-              'content-type':'application/x-www-form-urlencoded',
-              'auth-token':token
-              },
-          method: 'post',
-          dataType: 'json',
-          responseType: 'text',
-          success: (res)=>{
-              console.log(res)
-              if(res.data.code==200)
-              wx.redirectTo({
-                  url: '/pages/withdraw-deposit-result/withdraw-deposit-result',
-              });
-              else wx.showToast({
-                  title: 'err,code:'+res.data.code,
-                  image: './images/cancel.png',
-                  duration: 2000
-              });
-          },
-          fail: ()=>{
-              wx.showToast({
-                  title: '提现失败，请稍候再试'
-              });
-          },
-          complete: ()=>{}
-      });
-  },
+        }
+
+        try {
+            openId = wx.getStorageSync('openId')
+            token = wx.getStorageSync('token')
+            if (!openId) {
+                // Do something with return value
+                wx.showToast({
+                    title: 'openId不存在'
+                });
+                return;
+                    
+            }
+            if (!token) {
+                // Do something with return value
+                wx.showToast({
+                    title: 'token不存在'
+                });
+                return;
+                    
+            }
+        } catch (e) {
+            // Do something when catch error
+            console.log(e)
+        }
+        let that = this;
+        that.data.canClick=false;
+        wx.request({
+            url: app.globalData.baseUrl + '/useraccount/refund',
+            data: {
+                openId,
+                payAmt
+            },
+            header: {
+                'content-type':'application/x-www-form-urlencoded',
+                'auth-token':token
+                },
+            method: 'post',
+            dataType: 'json',
+            responseType: 'text',
+            success: (res)=>{
+                console.log(res)
+                if(res.data.code==200)
+                    wx.redirectTo({
+                        url: '/pages/withdraw-deposit-result/withdraw-deposit-result',
+                    });
+                else {
+                    wx.showToast({
+                        title: 'err,code:'+res.data.code,
+                        image: './images/cancel.png',
+                        duration: 2000,
+                        success: function (params) {
+                            that.data.canClick = true;
+                        }
+                    });
+                }
+            },
+            fail: ()=>{
+                wx.showToast({
+                    title: '提现失败，请稍候再试',
+                    success:function (params) {
+                        that.data.canClick=true;
+                    }
+                });
+            },
+            complete: ()=>{
+            }
+        });
+    },
     /**
      * 全部提现
      */
     allwithdraw(){
       this.setData({
-          payAmt:this.data.money
+        payAmt: parseFloat(this.data.money) - parseFloat(this.data.money * 0.002).toFixed(2),
+        poundage: parseFloat(this.data.money * 0.002).toFixed(2) * 100 / 100
       })
+      if ((this.data.money * 0.002) < 0.02 && this.data.money != 0) {
+        this.setData({
+          payAmt: parseFloat(this.data.money) - parseFloat(0.02),
+          poundage: 0.02
+        })
+      }
   },
 
   /**
